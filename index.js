@@ -34,7 +34,7 @@ client.on("message", message => {
                 
                 .addField(
                     "Liste des commandes scam",
-                    "**• 'scam <numéro>** *cherche dans nos bases de données si le numéro est une arnaque.*\n **• 'scam add <numéro>** *ajoute un numéro de téléphone à notre base de données d'arnaques.*")
+                    "**• 'scam <numéro, nom, site, mail>** *cherche dans nos bases de données si le numéro est une arnaque.*\n **• 'scam add <numéro, nom, site, mail>** *ajoute un numéro de téléphone à notre base de données d'arnaques.*")
 
                 .setFooter(`WinTea | Tea, Org.`)            
             message.channel.send(help);
@@ -55,7 +55,14 @@ client.on("message", message => {
                         if (body == "Error") {
                             var errorMessage = new Discord.RichEmbed()
                                 .setColor("#FF0000")
-                                .addField("Nous n'avons pas ce numéro dans nos bases de données. Si vous souhaitez l'ajouter, exécutez la commande:","**• 'scam add <numéro>**")
+                                .addField("Nous n'avons pas ce numéro dans nos bases de données. Si vous souhaitez l'ajouter, exécutez la commande:","**• 'scam add <numéro, nom, site, mail>**")
+                                .setFooter(`WinTea | Tea, Org.`);
+                            message.channel.send(errorMessage);
+                        } else if (body.startsWith("Error2")) {
+                            var bud = body.split("*");
+                            var errorMessage = new Discord.RichEmbed()
+                                .setColor("#FF0000")
+                                .addField("Nous avons trouvé "+bud[1]+" résultats dans nos bases de données. Essayez d'être plus précis dans votre recherche.", "**• 'scam <numéro, nom, site, mail>**")
                                 .setFooter(`WinTea | Tea, Org.`);
                             message.channel.send(errorMessage);
                         } else {
