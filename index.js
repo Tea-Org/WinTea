@@ -1,9 +1,9 @@
 const Discord = require("discord.js");
 var schedule = require('node-schedule');
+const request = require('request');
 const client = new Discord.Client();
 var prefix = ("'");
 
-client.login("hidden_token");
 
 client.on("ready", () => {
     client.user.setActivity("Ramadan mubrak", {type: "WATCHING"});
@@ -18,6 +18,7 @@ client.on("message", message => {
     var client_icone = client.user.displayAvatarURL;
 
     var args = message.content.substring(prefix.length).split(" ");
+
     if(!message.content.startsWith(prefix)) return;
 
     switch (args[0].toLowerCase()){
@@ -46,28 +47,52 @@ client.on("message", message => {
             switch (help_arg_list[0]) {
                 case 'add':
                     var add_arg = help_arg_list.slice(1).join(" ");
-                    message.channel.send(add_arg);
-                    break;
+
+                    
+                break;
                 default:
-                    message.channel.send(help_arg);
-                    break;
+                    request('https://vaeup.kellis.fr/discordjs/list.php?number='+help_arg_list[0], function (error, response, body) {
+                        if (body == "Error") {
+                            var errorMessage = new Discord.RichEmbed()
+                                .setColor("#FF0000")
+                                .addField("Nous n'avons pas ce numéro dans nos bases de données. Si vous souhaitez l'ajouter, exécutez la commande:","**• 'scam add <numéro>**")
+                                .setFooter(`WinTea | Tea, Org.`);
+                            message.channel.send(errorMessage);
+                        } else {
+                            var bud = body.split("*");
+
+                            var errorMessage = new Discord.RichEmbed()
+                                .setColor("#00FF44")
+                                .setTitle(bud[0])
+                                .addField(
+                                    "Site(s) internet:",
+                                    bud[1]
+                                )
+                                .addField(
+                                    "Numéro(s) de téléphone:",
+                                    bud[2]
+                                )
+                                .addField(
+                                    "Email(s):",
+                                    bud[3]
+                                )
+                                .addField(
+                                    "Autre(s) nom(s):",
+                                    bud[4]
+                                )
+                                .setFooter(`WinTea | Tea, Org.`);
+                            message.channel.send(errorMessage);
+                        }
+                    });
+                break;
             }
             
-            var report_embed_joueur = new Discord.RichEmbed()
-                .setColor("#992D22")
-                .setTitle("Report - Ati Community")
-                .setDescription("Votre report a été envoyer au support du serveur. Vous receverez une réponse sous peu.")
-                .addField("Motif du report", report_args)
-                .setFooter("Ati Community")
-                .setTimestamp()
-                default:
-            message.delete();
+            /*
             client.channels.findAll('name', 'report').map(channel => channel.send(report_embed_admin));
             message.author.createDM().then(channel => {
                 channel.send(report_embed_joueur)
             });
-            break;
-        
+            */
     }
 });
 
