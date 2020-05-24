@@ -8,7 +8,7 @@ var prefix = ("'");
 client.on("ready", () => {
     client.user.setActivity("Ramadan mubrak", {type: "WATCHING"});
 
-    const channel = client.channels.get('598206883106652176');
+    const channel = client.channels.get('705527547579859004');
     //channel.send('isibe fi omok el 9a7ba');
 
     console.log('On Discord!');
@@ -36,7 +36,7 @@ client.on("message", message => {
                     "Liste des commandes scam",
                     "**• 'scam <numéro, nom, site, mail>** *cherche dans nos bases de données si le numéro est une arnaque.*\n **• 'scam add <numéro, nom, site, mail>** *ajoute un numéro de téléphone à notre base de données d'arnaques.*")
 
-                .setFooter(`WinTea | Tea, Org.`)            
+                .setFooter(`WinTea | Tea, Org.`)
             message.channel.send(help);
             break;
 
@@ -105,18 +105,18 @@ client.on("message", message => {
 
 
 var j = schedule.scheduleJob('0 0 0 * * *', function(){
-    const channel = client.channels.get('598206883106652176');
+    const channel = client.channels.get('705527547579859004');
     channel.send('Bonne année');
 });
 var k = schedule.scheduleJob('0 16 2 * * *', function(){
-    const channel = client.channels.get('598206883106652176');
+    const channel = client.channels.get('705527547579859004');
     channel.send('miboun time');
 });
 var l = schedule.scheduleJob('0 44 6 * * *', function(){
-    const channel = client.channels.get('598206883106652176');
+    const channel = client.channels.get('705527547579859004');
     channel.send('onoff time');
 });
 var m = schedule.scheduleJob('0 56 7 * * *', function(){
-    const channel = client.channels.get('598206883106652176');
+    const channel = client.channels.get('705527547579859004');
     channel.send('onoff time');
 });
